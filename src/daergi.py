@@ -155,10 +155,10 @@ This program is distributed in the hope that it will be useful, but WITHOUT ANY 
         about.set_application_name("Daergi")
         about.set_application_icon("daergi")
         about.set_developer_name("Chuck Talk")
-        about.set_version("1.0.5")
+        about.set_version("1.0.6")
         about.set_support_url("https://github.com/TaliskerMan/Daergi/issues")
         # To show text in the built-in Legal tab, Adw.AboutWindow requires a legal section
-        about.add_legal_section("License", None, license_text)
+        about.add_legal_section("License", None, Gtk.License.CUSTOM, license_text)
         about.set_copyright("© 2026 Chuck Talk <Chuck@nordheim.online>")
         about.set_comments("""Easily toggle Intel CPU Turbo Boost to prioritize consistent frame rates and suppress thermal throttling while gaming.
 
