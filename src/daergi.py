@@ -2,6 +2,7 @@
 import sys
 import os
 import subprocess
+import threading
 import gi
 gi.require_version('Gtk', '4.0')
 gi.require_version('Adw', '1')
@@ -109,6 +110,26 @@ class DaergiWindow(Adw.ApplicationWindow):
             else:
                 self.status_label.set_markup("<span>Status: OFF</span>")
 
+    def __run_pkexec(self, cmd):
+        # Run pkexec completely disowned and detached
+        # This prevents GTK from pausing, which keeps polkit prompts from getting stuck beneath the spinning window.
+        try:
+             # run pkexec, but don't block. We don't interact with it.
+             subprocess.Popen(cmd, stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, close_fds=True)
+             
+             # Schedule a UI update in 3 seconds to see if the write was successful
+             # It takes a moment for the user to type their password.
+             GLib.timeout_add_seconds(3, self.__poll_for_update)
+        except Exception as e:
+             print(f"Error executing pkexec: {e}")
+             GLib.idle_add(self.update_ui_state)
+
+    def __poll_for_update(self):
+        # Just force a UI update
+        self.update_ui_state()
+        # Return False to stop the GLib timer
+        return False
+
     def on_switch_toggled(self, switch, gparam):
         new_state = switch.get_active()
         write_val = "0" if new_state else "1"
@@ -120,19 +141,9 @@ class DaergiWindow(Adw.ApplicationWindow):
         # For development local testing, fallback to generic sh if helper isn't installed
         if not os.path.exists(DAERGI_HELPER):
              cmd = ["pkexec", "sh", "-c", f"echo {write_val} > {TURBO_FILE}"]
-
-        try:
-            result = subprocess.run(cmd, capture_output=True, text=True)
-            if result.returncode != 0:
-                print(f"Failed to change state: {result.stderr}")
-                # Revert visual state
-                self.update_ui_state()
-            else:
-                # Success
-                self.update_ui_state()
-        except Exception as e:
-             print(f"Error executing pkexec: {e}")
-             self.update_ui_state()
+        
+        self.switch.set_sensitive(False)
+        self.__run_pkexec(cmd)
 
     def show_about(self, action, param):
         # Setup About Dialog
@@ -146,7 +157,7 @@ This program is distributed in the hope that it will be useful, but WITHOUT ANY 
             application_name="Daergi",
             application_icon="application-x-executable",
             developer_name="Chuck Talk",
-            version="1.0.0",
+            version="1.0.1",
             support_url="mailto:Chuck@nordheim.online",
             license_type=Gtk.License.GPL_3_0,
             comments="A simple GTK utility to toggle Intel CPU Turbo Boost on Linux.",
