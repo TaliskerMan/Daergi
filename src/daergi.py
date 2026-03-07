@@ -147,14 +147,22 @@ class DaergiWindow(Adw.ApplicationWindow):
     def show_about(self, action, param):
         # Setup About Dialog - Adw.AboutWindow needs to be explicitly created as an instance
         
+        license_text = """This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details."""
+
         about = Adw.AboutWindow.new()
         about.set_application_name("Daergi")
         about.set_application_icon("daergi")
         about.set_developer_name("Chuck Talk")
-        about.set_version("1.0.2")
-        about.set_support_url("mailto:Chuck@nordheim.online")
-        about.set_license_type(Gtk.License.GPL_3_0)
-        about.set_comments("A simple GTK utility to toggle Intel CPU Turbo Boost on Linux.")
+        about.set_version("1.0.4")
+        about.set_support_url("https://github.com/TaliskerMan/Daergi/issues")
+        about.set_license_type(Gtk.License.CUSTOM)
+        about.set_license(license_text)
+        about.set_comments("""Easily toggle Intel CPU Turbo Boost to prioritize consistent frame rates and suppress thermal throttling while gaming.
+
+Turn ON for maximum burst performance (browsing, work)
+Turn OFF for smooth, consistent frame-pacing in heavy Games.""")
         about.set_copyright("© 2026 Chuck Talk <Chuck@nordheim.online>")
         about.set_transient_for(self)
         about.present()
