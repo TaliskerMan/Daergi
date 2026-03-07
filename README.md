@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="data/icon.png" alt="Daergi Icon" width="128" />
+  <img src="data/daergi.png" alt="Daergi Icon" width="128" />
   <h1>Daergi</h1>
   <p>A simple, lightweight GTK4 application to manage Intel Turbo Boost on Linux.</p>
 </div>
