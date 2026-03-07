@@ -1,0 +1,16 @@
+#!/bin/bash
+# Daergi Helper Script
+# This is explicitly called by pkexec to run as root.
+# It expects exactly one argument: 0 or 1.
+
+if [ "$EUID" -ne 0 ]; then
+  echo "This script must be run as root."
+  exit 1
+fi
+
+if [ "$1" != "0" ] && [ "$1" != "1" ]; then
+    echo "Usage: daergi-helper [0|1]"
+    exit 1
+fi
+
+echo "$1" > /sys/devices/system/cpu/intel_pstate/no_turbo

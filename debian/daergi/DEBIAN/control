@@ -1,0 +1,9 @@
+Package: daergi
+Version: 1.0.0
+Architecture: all
+Maintainer: Chuck Talk <Chuck@nordheim.online>
+Depends: python3, python3-gi, gir1.2-gtk-4.0, gir1.2-adw-1, policykit-1
+Description: Manage Intel Turbo Boost
+ Daergi (Welsh for Terrier) is a simple, lightweight GTK4 application to manage Intel
+ Turbo Boost on Linux, allowing users to toggle Turbo Boost on/off for consistent frame
+ rates in games.

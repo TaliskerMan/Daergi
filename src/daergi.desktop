@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Daergi
+Comment=Manage Intel Turbo Boost State
+Exec=daergi
+Icon=daergi
+Terminal=false
+Type=Application
+Categories=System;Utility;Settings;
+Keywords=cpu;performance;gaming;turbo;
