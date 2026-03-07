@@ -2,7 +2,6 @@
 import sys
 import os
 import subprocess
-import threading
 import gi
 gi.require_version('Gtk', '4.0')
 gi.require_version('Adw', '1')
@@ -146,24 +145,19 @@ class DaergiWindow(Adw.ApplicationWindow):
         self.__run_pkexec(cmd)
 
     def show_about(self, action, param):
-        # Setup About Dialog
-        # Use simple built-in string for the license body
+        # Setup About Dialog - Adw.AboutWindow needs to be explicitly created as an instance
         
-        license_text = """This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
-
-This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details."""
-
-        about = Adw.AboutWindow(
-            application_name="Daergi",
-            application_icon="application-x-executable",
-            developer_name="Chuck Talk",
-            version="1.0.1",
-            support_url="mailto:Chuck@nordheim.online",
-            license_type=Gtk.License.GPL_3_0,
-            comments="A simple GTK utility to toggle Intel CPU Turbo Boost on Linux.",
-            copyright="© 2026 Chuck Talk <Chuck@nordheim.online>"
-        )
-        about.present(self)
+        about = Adw.AboutWindow.new()
+        about.set_application_name("Daergi")
+        about.set_application_icon("daergi")
+        about.set_developer_name("Chuck Talk")
+        about.set_version("1.0.2")
+        about.set_support_url("mailto:Chuck@nordheim.online")
+        about.set_license_type(Gtk.License.GPL_3_0)
+        about.set_comments("A simple GTK utility to toggle Intel CPU Turbo Boost on Linux.")
+        about.set_copyright("© 2026 Chuck Talk <Chuck@nordheim.online>")
+        about.set_transient_for(self)
+        about.present()
 
 class DaergiApp(Adw.Application):
     def __init__(self, **kwargs):
