@@ -155,7 +155,7 @@ This program is distributed in the hope that it will be useful, but WITHOUT ANY 
         about.set_application_name("Daergi")
         about.set_application_icon("daergi")
         about.set_developer_name("Chuck Talk")
-        about.set_version("1.0.6")
+        about.set_version("1.0.7")
         about.set_support_url("https://github.com/TaliskerMan/Daergi/issues")
         # To show text in the built-in Legal tab, Adw.AboutWindow requires a legal section
         about.add_legal_section("License", None, Gtk.License.CUSTOM, license_text)
