@@ -1,11 +1,19 @@
-#!/usr/bin/env python3
 import sys
 import os
 import subprocess
+import logging
 import gi
+
 gi.require_version('Gtk', '4.0')
 gi.require_version('Adw', '1')
 from gi.repository import Gtk, Adw, GLib, Gio
+
+# Initialize localized persistent logging engine per ShadowAgent Rules Engine
+log_dir = os.path.expanduser("~/.local/state/daergi")
+os.makedirs(log_dir, exist_ok=True)
+logging.basicConfig(filename=os.path.join(log_dir, "daergi.log"),
+                    level=logging.INFO,
+                    format='%(asctime)s - %(levelname)s - %(message)s')
 
 # Path to check/modify turbo boost
 TURBO_FILE = "/sys/devices/system/cpu/intel_pstate/no_turbo"
@@ -87,7 +95,7 @@ class DaergiWindow(Adw.ApplicationWindow):
                 val = f.read().strip()
                 return val == "0"
         except Exception as e:
-            print(f"Error reading turbo file: {e}")
+            logging.error(f"Failed extracting P-State driver toggle target: {e}")
             return None
 
     def update_ui_state(self):
@@ -120,7 +128,7 @@ class DaergiWindow(Adw.ApplicationWindow):
              # It takes a moment for the user to type their password.
              GLib.timeout_add_seconds(3, self.__poll_for_update)
         except Exception as e:
-             print(f"Error executing pkexec: {e}")
+             logging.error(f"Critical pkexec handler failure: {e}")
              GLib.idle_add(self.update_ui_state)
 
     def __poll_for_update(self):
@@ -142,6 +150,7 @@ class DaergiWindow(Adw.ApplicationWindow):
 
         cmd = ["pkexec", DAERGI_HELPER, write_val]
         
+        logging.info(f"Issuing pkexec toggle request. Target Turbo ON: {not new_state} -> {new_state}")
         self.switch.set_sensitive(False)
         self.__run_pkexec(cmd)
 
@@ -156,7 +165,7 @@ This program is distributed in the hope that it will be useful, but WITHOUT ANY 
         about.set_application_name("Daergi")
         about.set_application_icon("daergi")
         about.set_developer_name("Chuck Talk")
-        about.set_version("1.0.7")
+        about.set_version("1.0.8")
         about.set_support_url("https://github.com/TaliskerMan/Daergi/issues")
         # To show text in the built-in Legal tab, Adw.AboutWindow requires a legal section
         about.add_legal_section("License", None, Gtk.License.CUSTOM, license_text)
