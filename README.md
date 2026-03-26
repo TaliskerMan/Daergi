@@ -8,7 +8,6 @@
 Daergi (Welsh for Terrier) allows gamers and power users to easily toggle their Intel CPU's Turbo Boost feature on and off. Disabling Turbo Boost can help provide consistent frame rates without jarring stutters during intensive operations like gaming, at the cost of peak burst performance.
 
 ## Installation
-*(Coming soon - DEB package will be available in Releases)*
 
 1. Download the latest `daergi_X.X_all.deb` and the detached signature `.sig` from the Releases page.
 2. Verify the SHA512 hash and GPG detached signature.
