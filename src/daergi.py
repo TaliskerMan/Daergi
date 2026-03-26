@@ -135,11 +135,12 @@ class DaergiWindow(Adw.ApplicationWindow):
         
         # Use pkexec to run our helper script to set the value.
         # We use a specialized helper script to interact nicely with polkit.
-        cmd = ["pkexec", DAERGI_HELPER, write_val]
-        
-        # For development local testing, fallback to generic sh if helper isn't installed
         if not os.path.exists(DAERGI_HELPER):
-             cmd = ["pkexec", "sh", "-c", f"echo {write_val} > {TURBO_FILE}"]
+            self.status_label.set_markup("<span foreground='red'>Helper script missing! reinstall package.</span>")
+            self.switch.set_active(not new_state) # Revert toggle
+            return
+
+        cmd = ["pkexec", DAERGI_HELPER, write_val]
         
         self.switch.set_sensitive(False)
         self.__run_pkexec(cmd)
