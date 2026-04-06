@@ -20,4 +20,8 @@ echo "Building secure DEB package version $VERSION..."
 # Use --root-owner-group to prevent local privilege escalation vulnerability
 dpkg-deb --root-owner-group --build debian/daergi "daergi_${VERSION}_all.deb"
 
+echo "Generating SHA512 hash and GPG detach signature..."
+sha512sum "daergi_${VERSION}_all.deb" > "daergi_${VERSION}_all.deb.sha512"
+gpg --local-user "chuck@nordheim.online" --detach-sign --armor "daergi_${VERSION}_all.deb"
+
 echo "Package daergi_${VERSION}_all.deb has been built successfully."

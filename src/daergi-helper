@@ -1,4 +1,5 @@
 #!/bin/bash
+set -euo pipefail
 # Daergi Helper Script
 # This is explicitly called by pkexec to run as root.
 # It expects exactly one argument: 0 or 1.
