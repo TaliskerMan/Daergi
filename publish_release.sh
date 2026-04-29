@@ -1,17 +1,16 @@
 #!/bin/bash
-# Daergi 1.0.8 GitHub Release Publisher
+# Daergi 1.0.9 GitHub Release Publisher
 
-echo "Publishing Daergi 1.0.8 release to GitHub..."
+echo "Publishing Daergi 1.0.9 release to GitHub..."
 
-gh release create v1.0.8 \
-  --title "Daergi 1.0.8 - Critical Security Update" \
-  --notes "A critical Local Privilege Escalation (LPE) vulnerability affecting the Polkit authentication flow mapped to the daergi-helper script has been remediated. All users are urged to update immediately.
+gh release create v1.0.9 \
+  --title "Daergi 1.0.9 - Missing Shebang Hotfix" \
+  --notes "This release fixes an issue where Daergi failed to launch for new installations due to a missing Python shebang header. The issue was identified and patched directly in the source.
 
-Additional Hardening:
-- Stripped arbitrary GUI evaluation permissions from the headless background processes.
-- Removed a hardcoded dynamic shell evaluation fallback loop." \
-  daergi_1.0.8_all.deb \
-  daergi_1.0.8_all.deb.sha512 \
-  daergi_1.0.8_all.deb.asc
+Additional Checks:
+- Verified Snyk code scan passed with 0 vulnerabilities." \
+  daergi_1.0.9_all.deb \
+  daergi_1.0.9_all.deb.sha512 \
+  daergi_1.0.9_all.deb.asc
 
 echo "Release successfully published!"

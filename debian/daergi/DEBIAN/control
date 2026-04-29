@@ -1,5 +1,5 @@
 Package: daergi
-Version: 1.0.8
+Version: 1.0.9
 Architecture: all
 Maintainer: Chuck Talk <Chuck@nordheim.online>
 Depends: python3, python3-gi, gir1.2-gtk-4.0, gir1.2-adw-1, policykit-1
