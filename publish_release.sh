@@ -1,16 +1,16 @@
 #!/bin/bash
-# Daergi 1.0.9 GitHub Release Publisher
+# Daergi 1.0.10 GitHub Release Publisher
 
-echo "Publishing Daergi 1.0.9 release to GitHub..."
+echo "Publishing Daergi 1.0.10 release to GitHub..."
 
-gh release create v1.0.9 \
-  --title "Daergi 1.0.9 - Missing Shebang Hotfix" \
-  --notes "This release fixes an issue where Daergi failed to launch for new installations due to a missing Python shebang header. The issue was identified and patched directly in the source.
+gh release create v1.0.10 \
+  --title "Daergi 1.0.10 - Icon Sync and Version Bump" \
+  --notes "This release updates the StartWMClass for correct GNOME Dock/AppGrid icon grouping, bumps version to 1.0.10, and automates asset packaging.
 
 Additional Checks:
 - Verified Snyk code scan passed with 0 vulnerabilities." \
-  daergi_1.0.9_all.deb \
-  daergi_1.0.9_all.deb.sha512 \
-  daergi_1.0.9_all.deb.asc
+  daergi_1.0.10_all.deb \
+  daergi_1.0.10_all.deb.sha512 \
+  daergi_1.0.10_all.deb.asc
 
 echo "Release successfully published!"
