@@ -1,1 +1,4 @@
 debian/daergi
+*.deb
+*.asc
+*.sha512
