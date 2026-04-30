@@ -8,6 +8,9 @@ cp src/daergi.py debian/daergi/usr/bin/daergi
 cp src/daergi-helper debian/daergi/usr/bin/daergi-helper
 cp src/daergi.desktop debian/daergi/usr/share/applications/daergi.desktop
 cp src/online.nordheim.daergi.policy debian/daergi/usr/share/polkit-1/actions/online.nordheim.daergi.policy
+cp data/daergi.png debian/daergi/usr/share/daergi/daergi.png
+cp data/daergi.png debian/daergi/usr/share/icons/hicolor/512x512/apps/daergi.png
+cp data/daergi.png debian/daergi/usr/share/icons/hicolor/128x128/apps/daergi.png
 
 # Ensure permissions are correct
 chmod +x debian/daergi/usr/bin/daergi
